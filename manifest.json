@@ -1,22 +1,22 @@
 {
     "manifest_version": 4,
     "type": "extension",
-    "name": "彻底禁用更新",
+    "name": "时停系列",
     "slug": "kill-update",
-    "description": "彻底禁用NTQQ恼人的更新提示",
-    "version": "0.1.6",
+    "description": "禁用QQNT更新",
+    "version": "0.3.0",
     "icon": "./icon.png",
     "authors": [
         {
-            "name": "XiaoHe321",
-            "link": "https://github.com/xh321"
+            "name": "Simon404Error",
+            "link": "https://github.com/Simon404Error"
         }
     ],
     "repository": {
-        "repo": "xh321/LiteLoaderQQNT-Kill-Update",
+        "repo": "Simon404Error/LiteLoaderQQNT-NoUpdate-reload",
         "branch": "master",
         "release": {
-            "tag": "0.1.6"
+            "tag": "0.3.0"
         }
     },
     "platform": ["win32", "darwin", "linux"],

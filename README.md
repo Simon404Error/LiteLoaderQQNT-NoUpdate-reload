@@ -1,22 +1,52 @@
-# LiteLoaderQQNT - kill-update
+# 时停系列 · LiteLoaderQQNT-NoUpdate-reload
 
-LiteLoaderQQNT插件，完全屏蔽更新推送（QQ会认为自己是最新版）。
-使用前需要安装[LiteLoaderQQNT](https://github.com/mo-jinran/LiteLoaderQQNT)，并在QQNT新版上使用。
-目前已适配高版本QQ，建议所有用户更新。
+> 禁用 QQNT 更新：让 QQ 不再提示、不再下载、不再安装新版本。
 
-强烈建议加TG频道 https://t.me/+UwFw2Ff-8scyOWY1 来蹲更新/公告（老频道被爆破了，请加新频道）
+适配 **QQ 9.9.35 / 9.9.36**，可用于 **MakeQQGreatAgain（MGQA）** 或 LiteLoaderQQNT。
 
-## 使用方法
+上游项目：[xh321/LiteLoaderQQNT-Kill-Update](https://github.com/xh321/LiteLoaderQQNT-Kill-Update)（2023 年版，已不适配新版 QQ），本仓库是针对新版 QQNT 的重制版。
 
-直接在Github页面上Download Zip，然后在LiteLoaderQQNT配置界面中选择插件压缩包导入即可
-也可以使用插件商店类应用安装，如 https://github.com/ltxhhz/LL-plugin-list-viewer
+## 功能
 
-**版本不兼容提示**：从0.1.5起，插件已适配1.0版本以上`LiteLoaderQQNT`框架，同时不再兼容旧版框架，请遵循[安装方法](https://liteloaderqqnt.github.io/guide/install.html)更新框架。
+| 层级 | 做了什么 |
+| --- | --- |
+| 主进程 · 配置推送 | 拦截 `onUnitedConfigUpdate` 推送，清掉其中的升级条目与 `qqUpdateSwitch` / `qqUpdateInstallSwitch` 开关 |
+| 主进程 · 状态推送 | 命中升级标记的推送（`needUpdate` / `hasUpdaterInfo` / `silentUpdate` 等）改写成「无需更新」 |
+| 主进程 · 网络 | 阻断热更新差分包下载（`qqpatch.gtimg.cn/hotUpdate*`），不碰 `dynamic_module` 等业务资源 |
+| 渲染层 | 兜底关闭已经弹出的更新对话框（`update-dialog` / `force-update-dialog`） |
 
-会导致即使手动检查更新也提示是最新版
+## 安装
 
-<img width="881" height="409" alt="image" src="https://github.com/user-attachments/assets/ed8e093f-aa6e-43d9-8d5b-81561aaa1bdc" />
+1. 下载本仓库（或 Release 包），确认目录里有 `manifest.json`；
+2. 把整个目录放到插件目录下，目录名建议 `kill-update`；
+3. 重启 QQ，或在 MGQA Ctrl 面板点「重载插件」。
 
-## 协议及免责
+用 MGQA 的话也可以直接在面板里用「安装新插件 / 安装文件夹」导入本目录或 zip。
 
-MIT | 禁止用于任何非法用途，插件开发属学习与研究目的，仅自用，未提供给任何第三方使用。任何不当使用导致的任何侵权问题责任自负。
+## 文件说明
+
+| 文件 | 作用 |
+| --- | --- |
+| `manifest.json` | 插件清单（LiteLoaderQQNT manifest_version 4） |
+| `main.js` | 主进程：三层拦截的接线与打点 |
+| `scrub.js` | 纯逻辑：更新字段识别与清洗（不依赖 electron，可单测） |
+| `renderer.js` | 渲染层兜底：关闭更新弹窗 |
+| `icon.png` | 图标 |
+
+插件加载后可在 QQ 的日志里看到：
+
+```
+[Kill-Update] 已挂载 webContents 拦截
+[Kill-Update] 已挂载请求过滤: ...
+[Kill-Update] 拦截更新推送 channel=...
+```
+
+## 常见问题
+
+- **还弹更新提示？** 确认插件已启用（MGQA Ctrl 面板或 `config.json` 的 `enable_plugins`），并重启一次 QQ。
+- **已经下载好的更新包？** 本插件只阻止「检查 + 下载 + 弹窗」，已经落到 `versions\` 下的增量包需要手动删掉对应版本目录，或让 QQ 走完一次再重启。
+- **和手动改 QQ 文件冲突？** 增量更新要求基础文件是原始的；如果你还改过 `package.json` 等文件，建议先临时停用插件让 QQ 完成一次更新，再启用。
+
+## 许可
+
+MIT，见 `LICENSE`。原始版权归 XiaoHe321（2023）；本重制版由 Simon404Error 适配新版 QQNT。
