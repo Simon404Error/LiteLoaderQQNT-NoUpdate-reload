@@ -1,4 +1,4 @@
-# 时停系列 · LiteLoaderQQNT-NoUpdate-reload
+# LiteLoaderQQNT-NoUpdate-reload 咋瓦鲁多，时间停止了
 
 > 禁用 QQNT 更新：让 QQ 不再提示、不再下载、不再安装新版本。
 
