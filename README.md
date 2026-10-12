@@ -1,4 +1,4 @@
-# LiteLoaderQQNT-NoUpdate-reload 咋瓦鲁多，时间停止了
+# 时停系列 · LiteLoaderQQNT-NoUpdate-reload
 
 > 禁用 QQNT 更新：让 QQ 不再提示、不再下载、不再安装新版本。
 
@@ -14,6 +14,7 @@
 | 主进程 · 状态推送 | 命中升级标记的推送（`needUpdate` / `hasUpdaterInfo` / `silentUpdate` 等）改写成「无需更新」 |
 | 主进程 · 网络 | 阻断热更新差分包下载（`qqpatch.gtimg.cn/hotUpdate*`），不碰 `dynamic_module` 等业务资源 |
 | 渲染层 | 兜底关闭已经弹出的更新对话框（`update-dialog` / `force-update-dialog`） |
+| 渲染层 · 入口 | 隐藏 QQ 主面板左下角「≡」菜单里的 **检查更新**（同时兼容 `检测更新` / `检查新版本` / `检查升级` 等措辞） |
 
 ## 安装
 
@@ -30,7 +31,7 @@
 | `manifest.json` | 插件清单（LiteLoaderQQNT manifest_version 4） |
 | `main.js` | 主进程：三层拦截的接线与打点 |
 | `scrub.js` | 纯逻辑：更新字段识别与清洗（不依赖 electron，可单测） |
-| `renderer.js` | 渲染层兜底：关闭更新弹窗 |
+| `renderer.js` | 渲染层兜底：关闭更新弹窗 + 隐藏「≡」菜单里的「检查更新」入口 |
 | `icon.png` | 图标 |
 
 插件加载后可在 QQ 的日志里看到：
@@ -39,6 +40,7 @@
 [Kill-Update] 已挂载 webContents 拦截
 [Kill-Update] 已挂载请求过滤: ...
 [Kill-Update] 拦截更新推送 channel=...
+[Kill-Update] 已隐藏更新入口: A.q-context-menu-item q-context-menu-item--normal vue-component
 ```
 
 ## 常见问题

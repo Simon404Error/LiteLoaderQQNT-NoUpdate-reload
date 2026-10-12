@@ -3,8 +3,8 @@
     "type": "extension",
     "name": "时停系列",
     "slug": "kill-update",
-    "description": "禁用QQNT更新",
-    "version": "0.3.0",
+    "description": "禁用QQNT更新（含隐藏「检查更新」入口）",
+    "version": "0.4.0",
     "icon": "./icon.png",
     "authors": [
         {
@@ -16,7 +16,7 @@
         "repo": "Simon404Error/LiteLoaderQQNT-NoUpdate-reload",
         "branch": "master",
         "release": {
-            "tag": "0.3.0"
+            "tag": "0.4.0"
         }
     },
     "platform": ["win32", "darwin", "linux"],
